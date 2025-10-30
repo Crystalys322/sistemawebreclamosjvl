@@ -8,10 +8,13 @@
         response.sendRedirect("login.jsp");
         return;
     }
+
+    // 🔹 Versión de Git (Upstream)
     if (usuarioSesion.getIdRol() != 1) {
         response.sendRedirect("ControladorPrincipal?accion=vistaUsuario");
         return;
     }
+
     Map<String, Integer> resumenEstados = (Map<String, Integer>) request.getAttribute("resumenEstados");
     Map<String, Integer> resumenCategorias = (Map<String, Integer>) request.getAttribute("resumenCategorias");
     if (resumenEstados == null) {
@@ -20,6 +23,7 @@
     if (resumenCategorias == null) {
         resumenCategorias = new LinkedHashMap<String, Integer>();
     }
+
     StringBuilder estadosLabels = new StringBuilder("[");
     StringBuilder estadosValues = new StringBuilder("[");
     int index = 0;
@@ -34,6 +38,7 @@
     }
     estadosLabels.append("]");
     estadosValues.append("]");
+
     StringBuilder categoriasLabels = new StringBuilder("[");
     StringBuilder categoriasValues = new StringBuilder("[");
     index = 0;

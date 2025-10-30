@@ -50,6 +50,7 @@ public class ControladorPrincipal extends HttpServlet {
         if (accion == null) {
             accion = "loginForm";
         }
+
         switch (accion) {
             case "login":
                 autenticar(request, response);
@@ -100,6 +101,7 @@ public class ControladorPrincipal extends HttpServlet {
         String correo = request.getParameter("correo");
         String password = request.getParameter("password");
         String captchaIngresado = request.getParameter("captcha");
+
         HttpSession session = request.getSession();
         String captchaEsperado = (String) session.getAttribute("CAPTCHA_SESSION");
 
@@ -107,6 +109,7 @@ public class ControladorPrincipal extends HttpServlet {
         if (usuario != null) {
             session.setAttribute("usuarioSesion", usuario);
             session.removeAttribute("CAPTCHA_SESSION");
+
             if (esAdministrador(usuario)) {
                 response.sendRedirect("VistaAdministrador.jsp");
             } else {
@@ -173,6 +176,7 @@ public class ControladorPrincipal extends HttpServlet {
             response.sendRedirect("login.jsp");
             return;
         }
+
         List<ClsReclamo_jvl> reclamos = reclamoDAO.listarReclamosPorUsuario(usuarioSesion.getIdUsuario());
         request.setAttribute("listaReclamos", reclamos);
         request.setAttribute("categorias", categoriaDAO.listarCategorias());
@@ -185,6 +189,7 @@ public class ControladorPrincipal extends HttpServlet {
             response.sendRedirect("login.jsp");
             return;
         }
+
         List<ClsReclamo_jvl> reclamos = reclamoDAO.listarTodos();
         request.setAttribute("listaReclamos", reclamos);
         despachar(request, response, "VistaAdministrador.jsp");
@@ -231,6 +236,7 @@ public class ControladorPrincipal extends HttpServlet {
             response.sendRedirect("login.jsp");
             return;
         }
+
         Map<String, Integer> resumenEstados = reclamoDAO.obtenerResumenPorEstado();
         Map<String, Integer> resumenCategorias = reclamoDAO.obtenerResumenPorCategoria();
         request.setAttribute("resumenEstados", resumenEstados);
@@ -244,6 +250,7 @@ public class ControladorPrincipal extends HttpServlet {
             response.sendRedirect("login.jsp");
             return;
         }
+
         request.setAttribute("usuarios", usuarioDAO.listarUsuarios());
         request.setAttribute("roles", rolDAO.listarRoles());
         despachar(request, response, "GestionUsuarios.jsp");
@@ -305,6 +312,7 @@ public class ControladorPrincipal extends HttpServlet {
 
         int idUsuario;
         int idRol;
+
         try {
             idUsuario = Integer.parseInt(idUsuarioParam);
             idRol = Integer.parseInt(idRolParam);
@@ -349,6 +357,7 @@ public class ControladorPrincipal extends HttpServlet {
             listarUsuarios(request, response);
             return;
         }
+
         boolean eliminado = usuarioDAO.eliminarUsuario(idUsuario);
         request.setAttribute("mensaje", eliminado ? "Usuario eliminado" : "No se pudo eliminar el usuario");
         listarUsuarios(request, response);

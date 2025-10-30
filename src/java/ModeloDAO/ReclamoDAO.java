@@ -28,7 +28,7 @@ public class ReclamoDAO implements IReclamoDAO {
     public boolean registrarReclamo(ClsReclamo_jvl reclamo) {
         String sql = "INSERT INTO reclamos(idUsuario, idCategoria, descripcion, fechaRegistro, estado) VALUES (?,?,?,?,?)";
         try (Connection con = conexion.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql)) {
+             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, reclamo.getIdUsuario());
             ps.setInt(2, reclamo.getIdCategoria());
             ps.setString(3, reclamo.getDescripcion());
@@ -45,9 +45,10 @@ public class ReclamoDAO implements IReclamoDAO {
     @Override
     public List<ClsReclamo_jvl> listarReclamosPorUsuario(int idUsuario) {
         List<ClsReclamo_jvl> reclamos = new ArrayList<>();
-        String sql = "SELECT idReclamo, idUsuario, idCategoria, descripcion, fechaRegistro, estado FROM reclamos WHERE idUsuario = ? ORDER BY fechaRegistro DESC";
+        String sql = "SELECT idReclamo, idUsuario, idCategoria, descripcion, fechaRegistro, estado "
+                   + "FROM reclamos WHERE idUsuario = ? ORDER BY fechaRegistro DESC";
         try (Connection con = conexion.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql)) {
+             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idUsuario);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -63,10 +64,11 @@ public class ReclamoDAO implements IReclamoDAO {
     @Override
     public List<ClsReclamo_jvl> listarTodos() {
         List<ClsReclamo_jvl> reclamos = new ArrayList<>();
-        String sql = "SELECT idReclamo, idUsuario, idCategoria, descripcion, fechaRegistro, estado FROM reclamos ORDER BY fechaRegistro DESC";
+        String sql = "SELECT idReclamo, idUsuario, idCategoria, descripcion, fechaRegistro, estado "
+                   + "FROM reclamos ORDER BY fechaRegistro DESC";
         try (Connection con = conexion.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 reclamos.add(mapearReclamo(rs));
             }
@@ -86,7 +88,7 @@ public class ReclamoDAO implements IReclamoDAO {
             }
             con.setAutoCommit(false);
             try (PreparedStatement psUpdate = con.prepareStatement(sqlUpdate);
-                    PreparedStatement psSeguimiento = con.prepareStatement(sqlSeguimiento)) {
+                 PreparedStatement psSeguimiento = con.prepareStatement(sqlSeguimiento)) {
 
                 psUpdate.setString(1, nuevoEstado);
                 psUpdate.setInt(2, idReclamo);
@@ -118,8 +120,8 @@ public class ReclamoDAO implements IReclamoDAO {
         Map<String, Integer> resumen = new HashMap<>();
         String sql = "SELECT estado, COUNT(*) AS total FROM reclamos GROUP BY estado";
         try (Connection con = conexion.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 resumen.put(rs.getString("estado"), rs.getInt("total"));
             }
@@ -133,10 +135,11 @@ public class ReclamoDAO implements IReclamoDAO {
     public Map<String, Integer> obtenerResumenPorCategoria() {
         Map<String, Integer> resumen = new HashMap<>();
         String sql = "SELECT c.nombreCategoria AS categoria, COUNT(*) AS total "
-                + "FROM reclamos r INNER JOIN categorias c ON r.idCategoria = c.idCategoria GROUP BY c.nombreCategoria";
+                   + "FROM reclamos r INNER JOIN categorias c ON r.idCategoria = c.idCategoria "
+                   + "GROUP BY c.nombreCategoria";
         try (Connection con = conexion.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 resumen.put(rs.getString("categoria"), rs.getInt("total"));
             }

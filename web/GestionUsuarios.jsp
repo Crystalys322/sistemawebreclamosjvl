@@ -8,10 +8,13 @@
         response.sendRedirect("login.jsp");
         return;
     }
+
+    // 🔹 Versión de Git (Upstream)
     if (usuarioSesion.getIdRol() != 1) {
         response.sendRedirect("ControladorPrincipal?accion=vistaUsuario");
         return;
     }
+
     List<ClsUsuario_jvl> usuarios = (List<ClsUsuario_jvl>) request.getAttribute("usuarios");
     List<ClsRol_jvl> roles = (List<ClsRol_jvl>) request.getAttribute("roles");
     String mensaje = (String) request.getAttribute("mensaje");
