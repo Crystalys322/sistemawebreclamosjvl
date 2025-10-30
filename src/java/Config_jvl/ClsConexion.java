@@ -26,8 +26,8 @@ public class ClsConexion {
             
             // Crear una nueva conexión cada vez que se llama al método
             con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/tiendaelectrodomestico_jvl", 
-                "root", 
+                "jdbc:mysql://localhost:3306/sisreclamos_jvl",
+                "root",
                 ""
             );
         } catch (ClassNotFoundException | SQLException e) {
