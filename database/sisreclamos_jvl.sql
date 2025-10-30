@@ -77,17 +77,36 @@ INSERT INTO `roles` (`nombreRol`) VALUES
 
 INSERT INTO `usuarios` (`nombre`, `correo`, `password`, `idRol`, `ipAutorizada`) VALUES
   ('Administrador General', 'admin@sisreclamos.com', 'admin123', 1, NULL),
-  ('Usuario Demo', 'usuario@sisreclamos.com', 'usuario123', 2, NULL);
+  ('Usuario Demo', 'usuario@sisreclamos.com', 'usuario123', 2, NULL),
+  ('María López', 'maria.lopez@sisreclamos.com', 'maria2024', 2, NULL),
+  ('Carlos Pérez', 'carlos.perez@sisreclamos.com', 'carlospw', 2, NULL),
+  ('Ana Torres', 'ana.torres@sisreclamos.com', 'anat123', 2, NULL),
+  ('Luis Ramírez', 'luis.ramirez@sisreclamos.com', 'luispass', 2, NULL),
+  ('Sofía Morales', 'sofia.morales@sisreclamos.com', 'sofiam', 2, NULL);
 
 INSERT INTO `categorias` (`nombreCategoria`, `descripcion`) VALUES
   ('Servicios Generales', 'Incidencias generales en las instalaciones'),
   ('Tecnología', 'Problemas con equipos tecnológicos'),
-  ('Seguridad', 'Reportes relacionados con la seguridad');
+  ('Seguridad', 'Reportes relacionados con la seguridad'),
+  ('Mantenimiento', 'Requerimientos de mantenimiento preventivo y correctivo'),
+  ('Limpieza', 'Solicitudes relacionadas con limpieza y orden'),
+  ('Infraestructura', 'Daños en la infraestructura del edificio'),
+  ('Atención al Cliente', 'Inconvenientes en la atención brindada');
 
 INSERT INTO `reclamos` (`idUsuario`, `idCategoria`, `descripcion`, `estado`) VALUES
   (2, 1, 'Falla en el suministro eléctrico del tercer piso.', 'Pendiente'),
-  (2, 2, 'La impresora de la oficina 201 no funciona.', 'En atención');
+  (2, 2, 'La impresora de la oficina 201 no funciona.', 'En atención'),
+  (3, 5, 'No se realizó la limpieza en la sala de reuniones.', 'Pendiente'),
+  (4, 2, 'Equipo de videoconferencia se reinicia constantemente.', 'En atención'),
+  (5, 4, 'Aire acondicionado sin mantenimiento desde hace meses.', 'Pendiente'),
+  (6, 6, 'Grietas en la pared del pasillo principal.', 'Resuelto'),
+  (7, 7, 'Atención tardía en mesa de ayuda.', 'En atención');
 
 INSERT INTO `seguimientos` (`idReclamo`, `idUsuario`, `observacion`, `nuevoEstado`) VALUES
-  (2, 1, 'Se solicitó revisión al área de soporte técnico.', 'En atención');
+  (2, 1, 'Se solicitó revisión al área de soporte técnico.', 'En atención'),
+  (3, 1, 'Se coordinó servicio especial de limpieza para la tarde.', 'En atención'),
+  (4, 1, 'Proveedor externo diagnosticará el equipo mañana.', 'En atención'),
+  (5, 1, 'Se programa mantenimiento para la próxima semana.', 'En atención'),
+  (6, 1, 'Se reparó y pintó la zona afectada.', 'Resuelto'),
+  (7, 1, 'Se escaló la queja al responsable de atención.', 'En atención');
 
